@@ -24,6 +24,9 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/teams/members', [UserController::class, 'index'])
+    ->name('teams.index');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

@@ -84,6 +84,10 @@ const logout = () => {
                                                     Manage Team
                                                 </div>
 
+                                                <JetDropdownLink :href="route('teams.index', $page.props.user.current_team)">
+                                                    Team Members
+                                                </JetDropdownLink>
+
                                                 <!-- Team Settings -->
                                                 <JetDropdownLink :href="route('teams.show', $page.props.user.current_team)">
                                                     Team Settings
@@ -253,6 +257,10 @@ const logout = () => {
                                 <div class="block px-4 py-2 text-xs text-gray-400">
                                     Manage Team
                                 </div>
+
+                                <JetResponsiveNavLink :href="route('teams.index', $page.props.user.current_team)" :active="route().current('teams.index')">
+                                    Team Members
+                                </JetResponsiveNavLink>
 
                                 <!-- Team Settings -->
                                 <JetResponsiveNavLink :href="route('teams.show', $page.props.user.current_team)" :active="route().current('teams.show')">
