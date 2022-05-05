@@ -1,15 +1,10 @@
 <script setup>
-import { Head, Link } from '@inertiajs/inertia-vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import DeleteTeamForm from '@/Pages/Teams/Partials/DeleteTeamForm.vue';
-import JetSectionBorder from '@/Jetstream/SectionBorder.vue';
-import TeamMemberManager from '@/Pages/Teams/Partials/TeamMemberManager.vue';
-import UpdateTeamNameForm from '@/Pages/Teams/Partials/UpdateTeamNameForm.vue';
+import Pagination from '@/Jetstream/Pagination.vue';
 
 defineProps({
     team: Object,
-    availableRoles: Array,
-    permissions: Object,
+    users: Array,
 });
 </script>
 
@@ -21,23 +16,25 @@ defineProps({
             </h2>
         </template>
 
-        <div>
-            <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-                <UpdateTeamNameForm :team="team" :permissions="permissions" />
+        <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+            <table class="w-full whitespace-nowrap">
+                <tr class="text-left font-bold">
+                    <th class="pb-4 pt-6 px-6">Name</th>
+                    <th class="pb-4 pt-6 px-6">Email</th>
+                </tr>
 
-                <TeamMemberManager
-                    class="mt-10 sm:mt-0"
-                    :team="team"
-                    :available-roles="availableRoles"
-                    :user-permissions="permissions"
-                />
+                <tr v-for="user in users.data" :key="user.id">
+                    <td class="border-t">
+                        {{ user.name }}
+                    </td>
+                    <td class="border-t">
+                        {{ user.email }}
+                    </td>
+                </tr> 
+            </table>
 
-                <template v-if="permissions.canDeleteTeam && ! team.personal_team">
-                    <JetSectionBorder />
+            <pagination class="mt-6" :links="users.links" />
 
-                    <DeleteTeamForm class="mt-10 sm:mt-0" :team="team" />
-                </template>
-            </div>
         </div>
     </AppLayout>
 </template>
